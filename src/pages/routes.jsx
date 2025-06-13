@@ -3,6 +3,7 @@ import Layout from "./Layout";
 import RegisterForm from "./register"; // Asumsi path
 import LoginForm from "./login";       // Asumsi path
 import Homepage from "./homepage";         // Impor komponen Homepage
+import Dashboard from "./dashboard";
 
 export const router = createBrowserRouter([
     {
@@ -20,6 +21,10 @@ export const router = createBrowserRouter([
             {
                 index: true,
                 element: <Homepage /> // Gunakan komponen dengan PascalCase
+            },
+            {
+                path: "/dashboard",
+                element: <Dashboard /> // Gunakan komponen dengan PascalCase
             },
             // rute anak lainnya bisa ditambahkan di sini
         ]
