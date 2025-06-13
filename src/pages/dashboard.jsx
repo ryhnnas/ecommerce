@@ -1,17 +1,16 @@
-// src/dashboard.jsx
+// src/pages/dashboard.jsx
 
 import React from 'react';
 import styled from 'styled-components';
-import Sidebar from './components/Sidebar'; // Impor Sidebar yang sudah dipisah
+import Sidebar from '../components/sidebar';
 
-import {
-  MdNotifications, MdHourglassEmpty, MdCheckBox
-} from 'react-icons/md';
+// Impor ikon yang akan digunakan
+import { MdNotifications, MdHourglassEmpty, MdCheckBox } from 'react-icons/md';
 import { FaEllipsisV } from 'react-icons/fa';
 
-// Styled-component Wrapper - Semua CSS ada di sini
+// Styled-component Wrapper
+// PERBAIKAN: Seluruh blok CSS dimasukkan ke dalam backticks ``
 const DashboardWrapper = styled.div`
-  /* General Setup */
   --primary-color: #2a41e8;
   --text-color: #6a737c;
   --heading-color: #1c2733;
@@ -31,47 +30,7 @@ const DashboardWrapper = styled.div`
     color: var(--primary-color);
     text-decoration: none;
   }
-
-  /* Sidebar Styles */
-  .sidebar {
-    width: 280px;
-    background-color: var(--white-color);
-    padding: 30px 20px;
-    box-shadow: 2px 0 5px rgba(0,0,0,0.05);
-    flex-shrink: 0;
-
-    nav ul {
-      list-style: none;
-      padding: 0;
-      margin: 0;
-    }
-
-    nav li {
-      padding: 15px 20px;
-      margin-bottom: 5px;
-      border-radius: 8px;
-      display: flex;
-      align-items: center;
-      gap: 15px;
-      cursor: pointer;
-      color: var(--heading-color);
-      font-weight: 500;
-      transition: background-color 0.3s, color 0.3s;
-      
-      &:hover {
-        background-color: #f0f2ff;
-      }
-      &.active {
-        background-color: var(--primary-color);
-        color: var(--white-color);
-      }
-      svg {
-        font-size: 20px;
-      }
-    }
-  }
-
-  /* Main Content Styles */
+  
   .main-content {
     flex-grow: 1;
     background-color: var(--background-color);
@@ -104,6 +63,8 @@ const DashboardWrapper = styled.div`
       color: var(--heading-color);
       margin-top: 0;
       margin-bottom: 20px;
+      font-size: 16px;
+      text-transform: uppercase;
     }
     p, strong {
       font-size: 14px;
@@ -241,10 +202,14 @@ const DashboardWrapper = styled.div`
     border-radius: 8px;
     padding: 10px 25px;
     border: 1px solid var(--border-color);
+    overflow-x: auto;
+  }
+  .table-container {
+    min-width: 700px;
   }
   .table-header, .table-row {
     display: grid;
-    grid-template-columns: 1.5fr 2fr 2fr 2fr 1.5fr;
+    grid-template-columns: 1fr 1.5fr 1fr 1fr 1fr;
     align-items: center;
     padding: 15px 0;
     font-size: 14px;
@@ -274,134 +239,40 @@ const DashboardWrapper = styled.div`
   .status-pending { background-color: #fff8e1; color: var(--yellow-status); }
   .status-cancelled { background-color: #fbe9e7; color: var(--red-status); }
   .view-details { font-weight: bold; }
-  
-  .products-carousel {
-    display: flex;
-    align-items: center;
-    gap: 15px;
-  }
-  .carousel-arrow {
-    background-color: white;
-    border: 1px solid var(--border-color);
-    border-radius: 50%;
-    width: 40px;
-    height: 40px;
-    font-size: 20px;
-    cursor: pointer;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    flex-shrink: 0;
-  }
-  .products-grid {
-    flex-grow: 1;
-    display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    gap: 20px;
-  }
-  .product-card {
-    background-color: var(--white-color);
-    border: 1px solid var(--border-color);
-    border-radius: 8px;
-    padding: 15px;
-    text-align: center;
-    position: relative;
-    img {
-      max-width: 100%;
-      height: 150px;
-      object-fit: contain;
-      margin-bottom: 10px;
-    }
-  }
-  .product-tag {
-    position: absolute;
-    top: 10px;
-    left: 10px;
-    padding: 3px 8px;
-    font-size: 10px;
-    color: white;
-    border-radius: 3px;
-    font-weight: bold;
-    &.hot { background-color: var(--red-status); }
-    &.best-deal { background-color: var(--primary-color); }
-  }
-  .product-rating {
-    color: #ffc107;
-    font-size: 14px;
-    span {
-      color: var(--text-color);
-      font-size: 12px;
-      margin-left: 5px;
-    }
-  }
-  .product-name {
-    font-size: 14px;
-    color: var(--heading-color);
-    height: 40px; /* fixed height for alignment */
-    overflow: hidden;
-  }
-  .product-price {
-    font-size: 16px;
-    font-weight: bold;
-    color: var(--heading-color);
-  }
-
-  .carousel-dots {
-    display: flex;
-    justify-content: center;
-    margin-top: 20px;
-    .dot {
-      width: 8px;
-      height: 8px;
-      border-radius: 50%;
-      background-color: #ccc;
-      margin: 0 5px;
-      cursor: pointer;
-      &.active {
-        background-color: var(--primary-color);
-      }
-    }
-  }
 `;
 
 // Data Mock
 const userData = {
   name: 'Daniandra',
-  avatar: 'https://i.pravatar.cc/150?u=daniandra',
-  location: 'Dhaka - 1212, Bangladesh',
+  location: 'Dhaka-1207, Bangladesh',
   email: 'daniandra@gmail.com',
-  secondaryEmail: 'creativelayers088@gmail.com',
-  phone: '+02-820-5555-0118',
-  billingAddress: {
-    line1: 'East Pachalum, Wariha Rd, House no. 1523/C,',
-    line2: 'Dhaka - 1293, Bangladesh',
-    phone: '+02-820-8885-0118',
-    email: 'billing@gmail.com'
-  }
+  phone: '+62 8282 8282 1212',
+  avatar: 'https://i.pravatar.cc/60?u=daniandra',
+  billingAddress: 'East Tejturi Bazar, Word No. 38, Road No. 3/A, House No. 13/4, Dhaka 1215'
 };
+
 const recentOrders = [
-  { id: '#964597E1', status: 'SEDANG BERLANGSUNG', date: 'Dec 30, 2019 05:10', total: '$1,500 (5 Products)' },
-  { id: '#718971E7', status: 'SELESAI', date: 'Feb 2, 2019 19:28', total: '$90 (1 Product)' },
-  { id: '#952143E2', status: 'DIBATALKAN', date: 'Mar 20, 2019 23:14', total: '$160 (3 Products)' },
-  { id: '#718971E7', status: 'SELESAI', date: 'Feb 2, 2019 19:28', total: '$90 (1 Product)' },
-  { id: '#517462E5', status: 'DIBATALKAN', date: 'Dec 30, 2019 07:52', total: '$2,300 (2 Products)' },
-  { id: '#873971742', status: 'SELESAI', date: 'Dec 2, 2019 22:39', total: '$200 (1 Product)' },
+  { id: '#F994028763', customer: 'Daniandra', date: 'Dec 28, 2019', total: '$1,808.00', status: 'Completed' },
+  { id: '#F74907107', customer: 'John Doe', date: 'Feb 02, 2020', total: '$80.00', status: 'Pending' },
+  { id: '#E6214302', customer: 'Jane Smith', date: 'Mar 25, 2020', total: '$450.00', status: 'Cancelled' },
+  { id: '#G12345678', customer: 'Daniandra', date: 'Apr 10, 2020', total: '$25.50', status: 'Completed' },
 ];
-const recommendedProducts = [
-    { id: 1, name: 'TOZO T6 True Wireless Earbuds Bluetooth Headphon...', price: '$70', image: 'https://i.imgur.com/3ZkY4Yt.png', tag: 'HOT', rating: 5, reviews: 738 },
-    { id: 2, name: 'Samsung Electronics Samsung Galaxy S21 5G', price: '$2,300', image: 'https://i.imgur.com/7gC28eJ.png', rating: 5, reviews: 599 },
-    { id: 3, name: 'Amazon Basics High-Speed HDMI Cable (18 Gbps, 4K/6...', price: '$360', image: 'https://i.imgur.com/o1L4B3z.png', tag: 'BEST DEAL', rating: 5, reviews: 423 },
-    { id: 4, name: 'Portable Wriling Mschine, max capacity Model 181MF...', price: '$60', image: 'https://i.imgur.com/T0C4Yf1.png', rating: 5, reviews: 889 },
-];
+
 
 // Komponen Dashboard Utama
 const Dashboard = () => {
+
+  // Fungsi helper untuk status
   const getStatusClass = (status) => {
-    switch (status) {
-      case 'SELESAI': return 'status-completed';
-      case 'SEDANG BERLANGSUNG': return 'status-pending';
-      case 'DIBATALKAN': return 'status-cancelled';
-      default: return '';
+    switch (status.toLowerCase()) {
+      case 'completed':
+        return 'status-completed';
+      case 'pending':
+        return 'status-pending';
+      case 'cancelled':
+        return 'status-cancelled';
+      default:
+        return '';
     }
   };
 
@@ -410,24 +281,23 @@ const Dashboard = () => {
       <Sidebar />
       <main className="main-content">
         <div className="breadcrumbs">
-          <p>Home > User Account > <strong>Dashboard</strong></p>
+          <p>Home &gt; User &gt; Dashboard</p>
         </div>
-
+        
         <div className="welcome-header">
           <h2>Hello, {userData.name}</h2>
           <p>From your account dashboard, you can easily check & view your <a href="#">Recent Orders</a>, manage your <a href="#">Shipping and Billing Addresses</a> and <br/> edit your <a href="#">Password and Account Details</a>.</p>
         </div>
-
+        
         <div className="info-cards-grid">
           <div className="card account-info">
             <h3>ACCOUNT INFO</h3>
             <div className="user-details">
-              <img src={userData.avatar} alt="User Avatar" className="avatar"/>
+              <img src={userData.avatar} alt="User Avatar" className="avatar" />
               <div>
                 <strong>{userData.name}</strong>
                 <p>{userData.location}</p>
                 <p>Email: {userData.email}</p>
-                <p>Sec Email: {userData.secondaryEmail}</p>
                 <p>Phone: {userData.phone}</p>
               </div>
             </div>
@@ -436,32 +306,32 @@ const Dashboard = () => {
           <div className="card billing-address">
             <h3>BILLING ADDRESS</h3>
             <strong>{userData.name}</strong>
-            <p>{userData.billingAddress.line1}<br/>{userData.billingAddress.line2}</p>
-            <p>Phone Number: {userData.billingAddress.phone}</p>
-            <p>Email: {userData.billingAddress.email}</p>
+            <p>{userData.billingAddress}</p>
+            <p>Email: {userData.email}</p>
+            <p>Phone: {userData.phone}</p>
             <button className="edit-btn">EDIT ADDRESS</button>
           </div>
         </div>
 
         <div className="summary-cards-grid">
-          <div className="summary-card blue-bg">
-            <MdNotifications size={30} />
-            <p>154</p>
-            <span>Total Pesanan</span>
-          </div>
-          <div className="summary-card orange-bg">
-            <MdHourglassEmpty size={30} />
-            <p>05</p>
-            <span>Pesanan Menunggu</span>
-          </div>
-          <div className="summary-card green-bg">
-            <MdCheckBox size={30} />
-            <p>149</p>
-            <span>Pesanan Selesai</span>
-          </div>
+            <div className="summary-card blue-bg">
+                <MdNotifications size={40} />
+                <p>154</p>
+                <span>Total Pesanan</span>
+            </div>
+             <div className="summary-card orange-bg">
+                <MdHourglassEmpty size={40} />
+                <p>95</p>
+                <span>Pesanan Diproses</span>
+            </div>
+             <div className="summary-card green-bg">
+                <MdCheckBox size={40} />
+                <p>149</p>
+                <span>Pesanan Selesai</span>
+            </div>
         </div>
-
-        <section className="dashboard-section">
+        
+        <div className="dashboard-section">
             <div className="section-header">
                 <h3>PAYMENT OPTION</h3>
                 <a href="#">Semua Kartu →</a>
@@ -471,91 +341,54 @@ const Dashboard = () => {
                     <div className="card-actions">
                         <FaEllipsisV />
                         <div className="actions-dropdown">
-                            <div>Edit Card</div>
-                            <div>Delete Card</div>
+                            <div>Edit</div>
+                            <div>Hapus</div>
                         </div>
                     </div>
-                    <p className="card-balance">Rp 745.000.000</p>
-                    <p className="card-label">CARD NUMBER</p>
-                    <p className="card-number">**** **** **** 3814</p>
-                    <div className="card-footer">
-                        <span>VISA</span>
-                        <span>{userData.name}</span>
+                    <div>
+                        <p className="card-balance">Rp 145.000.000</p>
                     </div>
-                </div>
-                <div className="payment-card mastercard">
-                     <div className="card-actions">
-                        <FaEllipsisV />
-                    </div>
-                    <p className="card-balance">Rp 98.000.000</p>
-                    <p className="card-label">CARD NUMBER</p>
-                    <p className="card-number">**** **** **** 1761</p>
-                     <div className="card-footer">
-                        <img src="https://i.imgur.com/28Zk2z6.png" alt="Mastercard Logo" className="card-logo"/>
-                        <span>{userData.name}</span>
+                    <div>
+                        <p className="card-label">CARD NUMBER</p>
+                        <p className="card-number">3814 **** **** ****</p>
+                        <div className="card-footer">
+                            <span>{userData.name}</span>
+                            <img src="https://upload.wikimedia.org/wikipedia/commons/5/5e/Visa_Inc._logo.svg" alt="Visa" className="card-logo" />
+                        </div>
                     </div>
                 </div>
                 <div className="add-card">
-                    + Tambahkan Kartu
+                    + Tambah Kartu Baru
                 </div>
             </div>
-        </section>
+        </div>
 
-        <section className="dashboard-section">
-          <div className="section-header">
-            <h3>PESANAN TERBARU</h3>
-            <a href="#">View All →</a>
-          </div>
-          <div className="orders-table">
-            <div className="table-header">
-              <span>ORDER ID</span>
-              <span>STATUS</span>
-              <span>DATE</span>
-              <span>TOTAL</span>
-              <span>ACTION</span>
+        <div className="dashboard-section">
+            <div className="section-header">
+                <h3>PESANAN TERBARU</h3>
+                <a href="#">Lihat Semua →</a>
             </div>
-            {recentOrders.map((order, index) => (
-              <div className="table-row" key={index}>
-                <span className="order-id">{order.id}</span>
-                <span><div className={`status-pill ${getStatusClass(order.status)}`}>{order.status}</div></span>
-                <span>{order.date}</span>
-                <span>{order.total}</span>
-                <span><a href="#" className="view-details">Lihat Detail →</a></span>
-              </div>
-            ))}
-          </div>
-        </section>
-
-        <section className="dashboard-section">
-          <div className="section-header">
-            <h3>RIWAYAT PENCARIAN</h3>
-            <a href="#">Lihat Semua →</a>
-          </div>
-          <div className="products-carousel">
-            <button className="carousel-arrow prev">←</button>
-            <div className="products-grid">
-                {recommendedProducts.map(product => (
-                    <div className="product-card" key={product.id}>
-                        {product.tag && <span className={`product-tag ${product.tag === 'HOT' ? 'hot' : 'best-deal'}`}>{product.tag}</span>}
-                        <img src={product.image} alt={product.name} />
-                        <div className="product-rating">
-                            {'★'.repeat(product.rating)}{'☆'.repeat(5 - product.rating)}
-                            <span>({product.reviews})</span>
-                        </div>
-                        <p className="product-name">{product.name}</p>
-                        <p className="product-price">{product.price}</p>
+            <div className="orders-table">
+              <div className="table-container">
+                <div className="table-header">
+                    <span>ORDER ID</span>
+                    <span>CUSTOMER</span>
+                    <span>DATE</span>
+                    <span>TOTAL</span>
+                    <span>STATUS</span>
+                </div>
+                {recentOrders.map(order => (
+                    <div className="table-row" key={order.id}>
+                        <span className="order-id">{order.id}</span>
+                        <span>{order.customer}</span>
+                        <span>{order.date}</span>
+                        <span>{order.total}</span>
+                        <span><div className={`status-pill ${getStatusClass(order.status)}`}>{order.status}</div></span>
                     </div>
                 ))}
+              </div>
             </div>
-            <button className="carousel-arrow next">→</button>
-          </div>
-           <div className="carousel-dots">
-              <span className="dot"></span>
-              <span className="dot active"></span>
-              <span className="dot"></span>
-              <span className="dot"></span>
-            </div>
-        </section>
+        </div>
       </main>
     </DashboardWrapper>
   );
