@@ -1,11 +1,19 @@
-import { Outlet } from "react-router-dom";
+import React from 'react';
+import { Outlet } from 'react-router-dom'; // <-- IMPORT PENTING
+import Header from './components/Header';   // Sesuaikan path ke komponen Anda
+import Footer from './components/Footer';   // Sesuaikan path ke komponen Anda
 
-export default function Layout(){
-    return (
-//        <navbar />
-        <main>
-            <Outlet />
-        </main>
-//        <footer />
-    )
-}
+const Layout = () => {
+  return (
+    <>
+      <Header />
+      <main>
+        {/* Outlet adalah tempat di mana komponen anak (RegisterForm, LoginForm, dll) akan dirender */}
+        <Outlet /> 
+      </main>
+      <Footer />
+    </>
+  );
+};
+
+export default Layout;
