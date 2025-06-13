@@ -1,4 +1,6 @@
 import React, { useState } from 'react';
+import backgroundAsset from '../assets/background.png';
+import saleImage from '../assets/sale.png';
 
 // Komentar untuk font:
 // Untuk menggunakan font 'Inter', tambahkan link berikut di file public/index.html Anda:
@@ -18,6 +20,8 @@ const RegisterForm = () => {
       alignItems: 'center',
       minHeight: '100vh',
       backgroundColor: '#0052cc',
+      backgroundImage: `url(${backgroundAsset})`, // Path ke gambar
+      backgroundSize: 'cover',
       padding: '2rem',
       fontFamily: "'Inter', sans-serif", // Menambahkan font family
     },
@@ -37,7 +41,7 @@ const RegisterForm = () => {
     signUpText: {
       fontSize: '0.8rem',
       fontWeight: '600',
-      color: '#555',
+      color: '#0C5AA2',
       letterSpacing: '1px',
       marginBottom: '0.5rem',
       marginTop: 0,
@@ -45,15 +49,15 @@ const RegisterForm = () => {
     h2: {
       fontSize: '2rem',
       fontWeight: '700',
-      color: '#333',
+      color: '#0C5AA2',
       margin: '0 0 0.5rem 0',
     },
     loginPrompt: {
       marginBottom: '2rem',
-      color: '#666',
+      color: '#ACACAC',
     },
     loginLink: {
-      color: '#007bff',
+      color: '#0C5AA2',
       textDecoration: 'none',
       fontWeight: '600',
     },
@@ -80,7 +84,7 @@ const RegisterForm = () => {
       padding: '0.85rem',
       border: 'none',
       borderRadius: '8px',
-      backgroundColor: '#0052cc',
+      backgroundColor: '#0C5AA2',
       color: 'white',
       fontSize: '1rem',
       fontWeight: '700',
@@ -114,10 +118,15 @@ const RegisterForm = () => {
           <p style={styles.signUpText}>SIGN UP NOW</p>
           <h2 style={styles.h2}>Register For Free.</h2>
           <p style={styles.loginPrompt}>
-            Already have an account? <a href="#" style={styles.loginLink}>Log in.</a>
+            Already have an account? <a href="/login" style={styles.loginLink}>Log in.</a>
           </p>
 
           <form>
+            <div style={styles.formGroup}>
+              <label htmlFor="name" style={styles.label}>Name</label>
+              <input type="text" id="name" style={styles.input} />
+            </div>
+
             <div style={styles.formGroup}>
               <label htmlFor="username" style={styles.label}>Username</label>
               <input type="text" id="username" style={styles.input} />
@@ -148,7 +157,7 @@ const RegisterForm = () => {
         </div>
 
         <div style={styles.imageSection}>
-          <img src="#" alt="Illustration of people shopping with bags and a sale sign" style={styles.image} />
+          <img src={saleImage} alt="Illustration of people shopping with bags and a sale sign" style={styles.image} />
         </div>
       </div>
     </div>

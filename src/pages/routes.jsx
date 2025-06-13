@@ -3,6 +3,7 @@ import Layout from "./Layout";
 import RegisterForm from "./register"; // Asumsi path
 import LoginForm from "./login";       // Asumsi path
 import Homepage from "./homepage";         // Impor komponen Homepage
+import AddProduct from "./addProduct";
 import Dashboard from "./dashboard";
 import DashboardOrderHistory from "./dashboardOrderHistory";
 import ProductDetails from "./ProductDetails"; // Pastikan path ini benar
@@ -21,6 +22,10 @@ export const router = createBrowserRouter([
     {
         path: "/login",
         element: <LoginForm />
+    },
+    {
+        path: "/addProduct",
+        element: <AddProduct />
     },
     {
         path: "/",
@@ -62,11 +67,11 @@ export const router = createBrowserRouter([
                 path: "/dashboardlihattoko",
                 element: <DashboardLihatToko/> // Gunakan komponen dengan PascalCase
             },
+            {
+                path: "/productdetails",
+                element: <ProductDetails />
+            },
             // rute anak lainnya bisa ditambahkan di sini
         ]
-    },
-    {
-        path: "/productdetails",
-        element: <ProductDetails />
     },
 ]);
