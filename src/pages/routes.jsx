@@ -4,6 +4,7 @@ import RegisterForm from "./register"; // Asumsi path
 import LoginForm from "./login";       // Asumsi path
 import Homepage from "./homepage";         // Impor komponen Homepage
 import Dashboard from "./dashboard";
+import ProductDetails from "./ProductDetails"; // Pastikan path ini benar
 
 export const router = createBrowserRouter([
     {
@@ -28,5 +29,9 @@ export const router = createBrowserRouter([
             },
             // rute anak lainnya bisa ditambahkan di sini
         ]
-    }
+    },
+    {
+        path: "/productdetails",
+        element: <ProductDetails />
+    },
 ]);
