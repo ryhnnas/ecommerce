@@ -1,397 +1,316 @@
-// src/pages/dashboard.jsx
-
 import React from 'react';
-import styled from 'styled-components';
-import Sidebar from '../components/sidebar';
+// Impor ikon dari library lucide-react
+import { 
+  LayoutDashboard, Package, Truck, ShoppingCart, Heart, Store, CreditCard, Settings, LogOut, 
+  User, Mail, Phone, Edit2, MapPin, Box, Clock, CheckCircle, Plus, MoreVertical, Star, ArrowRight,
+  ArrowLeftCircle, ArrowRightCircle
+} from 'lucide-react';
 
-// Impor ikon yang akan digunakan
-import { MdNotifications, MdHourglassEmpty, MdCheckBox } from 'react-icons/md';
-import { FaEllipsisV } from 'react-icons/fa';
+// =================================================================================
+// 1. KOMPONEN CSS (Disimpan dalam satu file sesuai permintaan)
+// =================================================================================
+const Styles = () => (
+  <style>{`
+    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
 
-// Styled-component Wrapper
-// PERBAIKAN: Seluruh blok CSS dimasukkan ke dalam backticks ``
-const DashboardWrapper = styled.div`
-  --primary-color: #2a41e8;
-  --text-color: #6a737c;
-  --heading-color: #1c2733;
-  --background-color: #f8f9fa;
-  --white-color: #ffffff;
-  --border-color: #e0e0e0;
-  --green-status: #28a745;
-  --red-status: #dc3545;
-  --yellow-status: #ffc107;
-
-  font-family: 'Helvetica', 'Arial', sans-serif;
-  color: var(--text-color);
-  display: flex;
-  min-height: 100vh;
-  
-  a {
-    color: var(--primary-color);
-    text-decoration: none;
-  }
-  
-  .main-content {
-    flex-grow: 1;
-    background-color: var(--background-color);
-    padding: 20px 40px;
-  }
-
-  .breadcrumbs p {
-    font-size: 14px;
-    color: var(--text-color);
-  }
-
-  .welcome-header {
-    margin-bottom: 30px;
-    h2 {
-      color: var(--heading-color);
-      margin-bottom: 10px;
+    /* General & Layout Styles */
+    .dashboard-page {
+      font-family: 'Inter', sans-serif;
+      background-color: #f8f9fa;
+      min-height: 100vh;
+      padding: 24px;
     }
-    p {
-      line-height: 1.6;
+    .breadcrumb {
+      display: flex; align-items: center; gap: 8px; font-size: 14px;
+      color: #6c757d; margin-bottom: 24px;
     }
-  }
-
-  .card {
-    background-color: var(--white-color);
-    padding: 25px;
-    border-radius: 8px;
-    box-shadow: 0 2px 4px rgba(0,0,0,0.05);
-    border: 1px solid var(--border-color);
-    h3 {
-      color: var(--heading-color);
-      margin-top: 0;
-      margin-bottom: 20px;
-      font-size: 16px;
-      text-transform: uppercase;
+    .breadcrumb a { color: #6c757d; text-decoration: none; }
+    .dashboard-layout { display: flex; gap: 24px; align-items: flex-start; }
+    .sidebar {
+      flex: 0 0 260px; background-color: #ffffff; border-radius: 8px;
+      padding: 16px; box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
     }
-    p, strong {
-      font-size: 14px;
-      margin: 4px 0;
+    .main-content-grid {
+        flex: 1; display: flex; flex-direction: column; gap: 24px;
     }
-  }
-
-  .info-cards-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-    gap: 30px;
-    margin-bottom: 30px;
-  }
-
-  .account-info .user-details {
-    display: flex;
-    align-items: center;
-    gap: 20px;
-  }
-  .account-info .avatar {
-    width: 60px;
-    height: 60px;
-    border-radius: 50%;
-  }
-
-  .edit-btn {
-    margin-top: 20px;
-    background-color: transparent;
-    border: 1px solid var(--primary-color);
-    color: var(--primary-color);
-    padding: 10px 20px;
-    border-radius: 5px;
-    cursor: pointer;
-    font-weight: bold;
-  }
-
-  .summary-cards-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-    gap: 30px;
-    margin-bottom: 30px;
-  }
-
-  .summary-card {
-    padding: 20px;
-    border-radius: 8px;
-    text-align: center;
-    svg { margin-bottom: 10px; }
-    p { font-size: 36px; font-weight: bold; margin: 0; }
-    span { font-size: 14px; }
-    &.blue-bg { background-color: #e0f0ff; color: #007bff; }
-    &.orange-bg { background-color: #fff4e5; color: #ff9800; }
-    &.green-bg { background-color: #e5f7ed; color: #28a745; }
-  }
-
-  .dashboard-section {
-    margin-bottom: 40px;
-  }
-  .section-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: 20px;
-    h3 {
-      margin: 0;
-      color: var(--heading-color);
-      font-size: 18px;
+    .card {
+      background-color: #ffffff; border-radius: 8px;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05); padding: 24px;
     }
-  }
-
-  .payment-cards-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-    gap: 30px;
-  }
-  .payment-card {
-    border-radius: 15px;
-    padding: 20px;
-    color: white;
-    position: relative;
-    height: 180px;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    &.visa { background: linear-gradient(45deg, #1e3c72, #2a5298); }
-    &.mastercard { background: linear-gradient(45deg, #16A085, #F4D03F); }
-    .card-actions {
-      position: absolute;
-      top: 20px;
-      right: 20px;
-      cursor: pointer;
-      .actions-dropdown {
-        display: none;
-        position: absolute;
-        right: 0;
-        top: 25px;
-        background-color: white;
-        color: black;
-        border-radius: 5px;
-        box-shadow: 0 2px 10px rgba(0,0,0,0.2);
-        padding: 5px 0;
-        font-size: 14px;
-        width: 100px;
-        z-index: 10;
-        div {
-            padding: 8px 15px;
-            &:hover { background-color: #f0f0f0; }
-        }
-      }
-      &:hover .actions-dropdown {
-        display: block;
-      }
+    .card-header {
+        display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px;
     }
-    .card-balance { font-size: 24px; margin: 0; }
-    .card-label { font-size: 12px; opacity: 0.8; margin: 20px 0 5px; }
-    .card-number { font-size: 18px; letter-spacing: 2px; margin: 0; }
-    .card-footer { display: flex; justify-content: space-between; align-items: center; font-weight: bold; }
-    .card-logo { width: 40px; }
-  }
-
-  .add-card {
-    border: 2px dashed var(--border-color);
-    border-radius: 15px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    color: var(--text-color);
-    font-weight: 500;
-    cursor: pointer;
-    min-height: 180px;
-  }
-
-  .orders-table {
-    background-color: var(--white-color);
-    border-radius: 8px;
-    padding: 10px 25px;
-    border: 1px solid var(--border-color);
-    overflow-x: auto;
-  }
-  .table-container {
-    min-width: 700px;
-  }
-  .table-header, .table-row {
-    display: grid;
-    grid-template-columns: 1fr 1.5fr 1fr 1fr 1fr;
-    align-items: center;
-    padding: 15px 0;
-    font-size: 14px;
-  }
-  .table-header {
-    color: var(--text-color);
-    font-weight: bold;
-    border-bottom: 1px solid var(--border-color);
-  }
-  .table-row {
-    color: var(--heading-color);
-    border-bottom: 1px solid #f5f5f5;
-    &:last-child {
-      border-bottom: none;
+    .card-title { font-size: 16px; font-weight: 600; margin: 0; color: #343a40; }
+    .view-all-link {
+        font-size: 14px; font-weight: 500; color: #0d6efd; text-decoration: none; display: flex; align-items: center; gap: 4px;
     }
-  }
-  .order-id { font-weight: bold; }
-  .status-pill {
-    padding: 5px 12px;
-    border-radius: 15px;
-    font-size: 12px;
-    font-weight: bold;
-    text-align: center;
-    display: inline-block;
-  }
-  .status-completed { background-color: #e5f7ed; color: var(--green-status); }
-  .status-pending { background-color: #fff8e1; color: var(--yellow-status); }
-  .status-cancelled { background-color: #fbe9e7; color: var(--red-status); }
-  .view-details { font-weight: bold; }
-`;
+    .footer { text-align: center; margin-top: 24px; font-size: 14px; color: #6c757d; }
 
-// Data Mock
-const userData = {
-  name: 'Daniandra',
-  location: 'Dhaka-1207, Bangladesh',
-  email: 'daniandra@gmail.com',
-  phone: '+62 8282 8282 1212',
-  avatar: 'https://i.pravatar.cc/60?u=daniandra',
-  billingAddress: 'East Tejturi Bazar, Word No. 38, Road No. 3/A, House No. 13/4, Dhaka 1215'
-};
+    /* Sidebar */
+    .sidebar-nav ul { list-style: none; padding: 0; margin: 0; }
+    .sidebar-nav li a {
+      display: flex; align-items: center; gap: 12px; padding: 12px 16px;
+      text-decoration: none; color: #495057; border-radius: 6px; font-weight: 500;
+      transition: background-color 0.2s, color 0.2s;
+    }
+    .sidebar-nav li a:hover { background-color: #f1f3f5; }
+    .sidebar-nav li a.active { background-color: #0d6efd; color: #ffffff; }
+    .sidebar-nav li a.active svg { color: #ffffff; }
+    .sidebar-hr { border: none; border-top: 1px solid #e9ecef; margin: 16px 0; }
+    
+    /* Welcome & Top Section */
+    .welcome-text h2 { margin: 0 0 4px 0; font-size: 24px; }
+    .welcome-text p { margin: 0; color: #6c757d; }
+    .top-section { display: flex; gap: 24px; align-items: flex-start; }
+    .info-grid { flex: 1; display: grid; grid-template-columns: 1fr 1fr; gap: 24px; }
+    .info-box { display: flex; flex-direction: column; }
+    .info-box h3 { font-size: 14px; font-weight: 600; text-transform: uppercase; color: #6c757d; margin: 0 0 16px 0; }
+    .user-profile { display: flex; align-items: center; gap: 16px; margin-bottom: 16px; }
+    .user-profile img { width: 48px; height: 48px; border-radius: 50%; }
+    .user-profile h4 { font-size: 16px; font-weight: 600; margin: 0; }
+    .user-profile p { font-size: 14px; color: #6c757d; margin: 2px 0 0 0; }
+    .info-line { display: flex; gap: 8px; align-items: center; font-size: 14px; margin-bottom: 8px; }
+    .info-line svg { color: #868e96; }
+    .edit-button {
+        width: 100%; padding: 10px; margin-top: 16px; border-radius: 6px;
+        background-color: #e7f5ff; color: #0d6efd; border: none;
+        font-weight: 600; cursor: pointer; text-align: center;
+    }
 
+    /* Order Summary Boxes */
+    .order-summary-container { display: flex; flex-direction: column; gap: 16px; width: 220px; }
+    .summary-box {
+        display: flex; align-items: center; gap: 16px; padding: 16px;
+        border-radius: 8px; color: white;
+    }
+    .summary-box .icon { width: 36px; height: 36px; border-radius: 50%; display: flex; align-items: center; justify-content: center; }
+    .summary-box .text strong { font-size: 20px; display: block; }
+    .summary-box .text span { font-size: 12px; opacity: 0.9; }
+    .summary-box.blue { background-color: #0d6efd; }
+    .summary-box.blue .icon { background-color: rgba(255,255,255,0.2); }
+    .summary-box.orange { background-color: #fd7e14; }
+    .summary-box.orange .icon { background-color: rgba(255,255,255,0.2); }
+    .summary-box.green { background-color: #198754; }
+    .summary-box.green .icon { background-color: rgba(255,255,255,0.2); }
+    
+    /* Payment Options */
+    .payment-cards-container { display: flex; gap: 24px; align-items: center; }
+    .credit-card-visual {
+        width: 280px; height: 160px; border-radius: 12px; padding: 20px; color: white;
+        display: flex; flex-direction: column; justify-content: space-between; position: relative;
+    }
+    .credit-card-visual.blue-card { background: linear-gradient(45deg, #0d6efd, #0d6efd); }
+    .credit-card-visual.green-card { background: linear-gradient(45deg, #198754, #28a745); }
+    .card-header-line { display: flex; justify-content: space-between; align-items: center; }
+    .card-header-line span { font-size: 12px; font-weight: 500; }
+    .card-number { font-family: 'monospace'; font-size: 20px; letter-spacing: 2px; margin: auto 0; }
+    .card-footer-line { display: flex; justify-content: space-between; font-size: 14px; font-weight: 500; }
+    .add-card-button {
+        width: 280px; height: 160px; border-radius: 12px;
+        border: 2px dashed #adb5bd; background-color: #f8f9fa;
+        display: flex; flex-direction: column; align-items: center; justify-content: center;
+        gap: 8px; color: #495057; font-weight: 600; cursor: pointer;
+    }
+
+    /* Recent Orders Table */
+    .orders-table { width: 100%; border-collapse: collapse; }
+    .orders-table th, .orders-table td {
+        padding: 12px 0; text-align: left; font-size: 14px; border-bottom: 1px solid #e9ecef;
+    }
+    .orders-table th { color: #868e96; font-weight: 600; text-transform: uppercase; font-size: 12px; }
+    .orders-table td { color: #495057; }
+    .orders-table tr:last-child td { border-bottom: none; }
+    .status-badge { padding: 4px 8px; border-radius: 4px; font-weight: 600; font-size: 12px; }
+    .status-selesai { background-color: #d1e7dd; color: #0f5132; }
+    .status-dibatalkan { background-color: #f8d7da; color: #842029; }
+    .status-proses { background-color: #fff3cd; color: #664d03; }
+    
+    /* Search History */
+    .products-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 24px; }
+    .product-card { border: 1px solid #e9ecef; border-radius: 8px; overflow: hidden; }
+    .product-image { position: relative; }
+    .product-image img { width: 100%; height: 200px; object-fit: cover; }
+    .product-tag {
+        position: absolute; top: 12px; left: 12px; background-color: #dc3545; color: white;
+        padding: 4px 8px; font-size: 10px; font-weight: 600; border-radius: 4px;
+    }
+    .product-tag.best { background-color: #0d6efd; }
+    .product-info { padding: 16px; }
+    .product-rating { display: flex; gap: 2px; color: #ffc107; margin-bottom: 8px; }
+    .product-name { font-size: 14px; font-weight: 500; color: #343a40; margin-bottom: 8px; }
+    .product-price { font-size: 16px; font-weight: 600; }
+    .carousel-nav { display: flex; justify-content: center; align-items: center; gap: 16px; margin-top: 24px; }
+    .carousel-nav svg { color: #0d6efd; cursor: pointer; }
+    .carousel-dots { display: flex; gap: 8px; }
+    .dot { width: 8px; height: 8px; border-radius: 50%; background-color: #dee2e6; }
+    .dot.active { background-color: #0d6efd; }
+    
+    @media (max-width: 1200px) {
+      .top-section { flex-direction: column; }
+      .order-summary-container { flex-direction: row; width: 100%; }
+      .summary-box { flex: 1; }
+      .products-grid { grid-template-columns: 1fr 1fr; }
+    }
+    @media (max-width: 992px) {
+      .dashboard-layout { flex-direction: column; }
+      .sidebar { flex: 0 0 auto; width: 100%; }
+      .info-grid { grid-template-columns: 1fr; }
+    }
+  `}</style>
+);
+
+// =================================================================================
+// 2. DATA DUMMY (Sesuai gambar)
+// =================================================================================
 const recentOrders = [
-  { id: '#F994028763', customer: 'Daniandra', date: 'Dec 28, 2019', total: '$1,808.00', status: 'Completed' },
-  { id: '#F74907107', customer: 'John Doe', date: 'Feb 02, 2020', total: '$80.00', status: 'Pending' },
-  { id: '#E6214302', customer: 'Jane Smith', date: 'Mar 25, 2020', total: '$450.00', status: 'Cancelled' },
-  { id: '#G12345678', customer: 'Daniandra', date: 'Apr 10, 2020', total: '$25.50', status: 'Completed' },
+    { id: '#95459761', status: 'SEDANG DIPROSES', date: 'Dec 30, 2019 05:18', total: '$1,500 (3 Products)' },
+    { id: '#71667167', status: 'SELESAI', date: 'Feb 2, 2019 19:28', total: '$80 (1 Products)' },
+    { id: '#95214362', status: 'DIBATALKAN', date: 'Mar 20, 2019 23:14', total: '$80 (1 Products)' },
+    { id: '#71667167', status: 'SELESAI', date: 'Feb 2, 2019 19:28', total: '$80 (1 Products)' },
+    { id: '#51746385', status: 'DIBATALKAN', date: 'Dec 30, 2019 07:52', total: '$2,300 (2 Products)' },
+    { id: '#673871743', status: 'SELESAI', date: 'Dec 7, 2019 23:26', total: '$220 (1 Products)' },
 ];
-
-
-// Komponen Dashboard Utama
-const Dashboard = () => {
-
-  // Fungsi helper untuk status
-  const getStatusClass = (status) => {
-    switch (status.toLowerCase()) {
-      case 'completed':
-        return 'status-completed';
-      case 'pending':
-        return 'status-pending';
-      case 'cancelled':
-        return 'status-cancelled';
-      default:
-        return '';
+const products = [
+    { img: 'https://i.imgur.com/vT6V0aw.png', tag: 'HOT', rating: 4, name: 'TCL T6 True Wireless Earbuds Bluetooth Headph...', price: '$46', tagColor: '#dc3545' },
+    { img: 'https://i.imgur.com/kSj4d1c.png', tag: null, rating: 5, name: 'Samsung Electronics Samrtung Galaxy S21 5G...', price: '$265' },
+    { img: 'https://i.imgur.com/bDjV83w.png', tag: 'BEST DEALS', rating: 4, name: 'Amazon Basics High Speed HDMI Cable For Ultra, 4K/Vs...', price: '$8', tagColor: '#0d6efd' },
+    { img: 'https://i.imgur.com/Hl51cI5.png', tag: null, rating: 5, name: 'Portable Miding Machine, 11lbs capacity Model 18NMF...', price: '$124' },
+];
+const getStatusClass = (status) => {
+    switch (status) {
+        case 'SELESAI': return 'status-selesai';
+        case 'DIBATALKAN': return 'status-dibatalkan';
+        case 'SEDANG DIPROSES': return 'status-proses';
+        default: return '';
     }
-  };
-
-  return (
-    <DashboardWrapper>
-      <Sidebar />
-      <main className="main-content">
-        <div className="breadcrumbs">
-          <p>Home &gt; User &gt; Dashboard</p>
-        </div>
-        
-        <div className="welcome-header">
-          <h2>Hello, {userData.name}</h2>
-          <p>From your account dashboard, you can easily check & view your <a href="#">Recent Orders</a>, manage your <a href="#">Shipping and Billing Addresses</a> and <br/> edit your <a href="#">Password and Account Details</a>.</p>
-        </div>
-        
-        <div className="info-cards-grid">
-          <div className="card account-info">
-            <h3>ACCOUNT INFO</h3>
-            <div className="user-details">
-              <img src={userData.avatar} alt="User Avatar" className="avatar" />
-              <div>
-                <strong>{userData.name}</strong>
-                <p>{userData.location}</p>
-                <p>Email: {userData.email}</p>
-                <p>Phone: {userData.phone}</p>
-              </div>
-            </div>
-            <button className="edit-btn">EDIT ACCOUNT</button>
-          </div>
-          <div className="card billing-address">
-            <h3>BILLING ADDRESS</h3>
-            <strong>{userData.name}</strong>
-            <p>{userData.billingAddress}</p>
-            <p>Email: {userData.email}</p>
-            <p>Phone: {userData.phone}</p>
-            <button className="edit-btn">EDIT ADDRESS</button>
-          </div>
-        </div>
-
-        <div className="summary-cards-grid">
-            <div className="summary-card blue-bg">
-                <MdNotifications size={40} />
-                <p>154</p>
-                <span>Total Pesanan</span>
-            </div>
-             <div className="summary-card orange-bg">
-                <MdHourglassEmpty size={40} />
-                <p>95</p>
-                <span>Pesanan Diproses</span>
-            </div>
-             <div className="summary-card green-bg">
-                <MdCheckBox size={40} />
-                <p>149</p>
-                <span>Pesanan Selesai</span>
-            </div>
-        </div>
-        
-        <div className="dashboard-section">
-            <div className="section-header">
-                <h3>PAYMENT OPTION</h3>
-                <a href="#">Semua Kartu →</a>
-            </div>
-            <div className="payment-cards-grid">
-                <div className="payment-card visa">
-                    <div className="card-actions">
-                        <FaEllipsisV />
-                        <div className="actions-dropdown">
-                            <div>Edit</div>
-                            <div>Hapus</div>
-                        </div>
-                    </div>
-                    <div>
-                        <p className="card-balance">Rp 145.000.000</p>
-                    </div>
-                    <div>
-                        <p className="card-label">CARD NUMBER</p>
-                        <p className="card-number">3814 **** **** ****</p>
-                        <div className="card-footer">
-                            <span>{userData.name}</span>
-                            <img src="https://upload.wikimedia.org/wikipedia/commons/5/5e/Visa_Inc._logo.svg" alt="Visa" className="card-logo" />
-                        </div>
-                    </div>
-                </div>
-                <div className="add-card">
-                    + Tambah Kartu Baru
-                </div>
-            </div>
-        </div>
-
-        <div className="dashboard-section">
-            <div className="section-header">
-                <h3>PESANAN TERBARU</h3>
-                <a href="#">Lihat Semua →</a>
-            </div>
-            <div className="orders-table">
-              <div className="table-container">
-                <div className="table-header">
-                    <span>ORDER ID</span>
-                    <span>CUSTOMER</span>
-                    <span>DATE</span>
-                    <span>TOTAL</span>
-                    <span>STATUS</span>
-                </div>
-                {recentOrders.map(order => (
-                    <div className="table-row" key={order.id}>
-                        <span className="order-id">{order.id}</span>
-                        <span>{order.customer}</span>
-                        <span>{order.date}</span>
-                        <span>{order.total}</span>
-                        <span><div className={`status-pill ${getStatusClass(order.status)}`}>{order.status}</div></span>
-                    </div>
-                ))}
-              </div>
-            </div>
-        </div>
-      </main>
-    </DashboardWrapper>
-  );
 };
 
+// =================================================================================
+// 3. KOMPONEN HEADER, SIDEBAR, FOOTER
+// =================================================================================
+const Header = () => (
+  <header>
+    <nav className="breadcrumb"><a href="#">Home</a> / <a href="#">User Account</a> / <span className="active" style={{color: '#343a40', fontWeight: '500'}}>Dashboard</span></nav>
+  </header>
+);
+const Footer = () => (<footer className="footer"><p>&copy; {new Date().getFullYear()} Your Company Name. All rights reserved.</p></footer>);
+const Sidebar = () => {
+    const navItems = [
+      { icon: <LayoutDashboard size={20} />, label: 'Dashboard', active: true },
+      { icon: <Package size={20} />, label: 'Riwayat Pemesanan' },
+      { icon: <Truck size={20} />, label: 'Lacak Pesanan' },
+      { icon: <ShoppingCart size={20} />, label: 'Keranjang Belanja' },
+      { icon: <Heart size={20} />, label: 'Wishlist' },
+      { icon: <Store size={20} />, label: 'Buka Toko' },
+      { icon: <CreditCard size={20} />, label: 'Kartu & Alamat' },
+      { icon: <Settings size={20} />, label: 'Pengaturan' },
+    ];
+    return (
+      <aside className="sidebar">
+        <nav className="sidebar-nav">
+          <ul>{navItems.map(item => (<li key={item.label}><a href="#" className={item.active ? 'active' : ''}>{item.icon}<span>{item.label}</span></a></li>))}</ul>
+          <hr className="sidebar-hr" />
+          <ul><li><a href="#"><LogOut size={20} /><span>Log-out</span></a></li></ul>
+        </nav>
+      </aside>
+    );
+};
+  
+// =================================================================================
+// 4. KOMPONEN UTAMA
+// =================================================================================
+const Dashboard = () => {
+    return (
+      <>
+        <Styles />
+        <div className="dashboard-page">
+          <Header />
+          <div className="dashboard-layout">
+            <Sidebar />
+            <div className="main-content-grid">
+                
+                <div className="welcome-text">
+                    <h2>Hello, Daniandra</h2>
+                    <p>From your account dashboard, you can easily check & view your <a href="#">Recent Orders</a>, manage your <a href="#">Shipping and Billing Addresses</a> and <a href="#">edit your password and account details.</a></p>
+                </div>
+
+                <div className="top-section">
+                    <div className="card info-grid">
+                        <div className="info-box">
+                            <h3>ACCOUNT INFO</h3>
+                            <div className="user-profile">
+                                <img src="https://i.imgur.com/zQZ7M49.png" alt="Daniandra" />
+                                <div><h4>Daniandra</h4><p>Dhaka-1217, Bangladesh</p></div>
+                            </div>
+                            <div className="info-line"><Mail size={16}/><p>daniandra@gmail.com</p></div>
+                            <div className="info-line"><Phone size={16}/><p>+62-820-5555-8181</p></div>
+                            <button className="edit-button">EDIT ACCOUNT</button>
+                        </div>
+                        <div className="info-box">
+                            <h3>BILLING ADDRESS</h3>
+                            <p className="info-line">Daniandra</p>
+                            <p className="info-line" style={{alignItems: 'start'}}>
+                                <MapPin size={16} style={{marginTop: '4px', flexShrink: 0}} />
+                                <span>East Tejturi Bazar, Word No. 04, Road No. 13/x, House No 1320/C, Flat No. 5D, Dhaka-1206, Bangladesh</span>
+                            </p>
+                            <div className="info-line"><Phone size={16}/><p>+62-820-5555-8181</p></div>
+                            <div className="info-line"><Mail size={16}/><p>kevin.gilbert@riovamail.com</p></div>
+                            <button className="edit-button">EDIT ADDRESS</button>
+                        </div>
+                    </div>
+                    <div className="order-summary-container">
+                        <div className="summary-box blue"><div className="icon"><Box size={20}/></div><div className="text"><strong>154</strong><span>Total Pesanan</span></div></div>
+                        <div className="summary-box orange"><div className="icon"><Clock size={20}/></div><div className="text"><strong>05</strong><span>Pesanan Menunggu</span></div></div>
+                        <div className="summary-box green"><div className="icon"><CheckCircle size={20}/></div><div className="text"><strong>149</strong><span>Pesanan Selesai</span></div></div>
+                    </div>
+                </div>
+
+                <div className="card">
+                    <div className="card-header"><h3 className="card-title">PAYMENT OPTION</h3></div>
+                    <div className="payment-cards-container">
+                        <div className="credit-card-visual blue-card">
+                            <div className="card-header-line"><span>Rp 745.000.000</span><button style={{background: 'rgba(255,255,255,0.2)', border: 'none', color: 'white', padding: '4px 8px', borderRadius: '4px', cursor: 'pointer', fontSize: '10px'}}>Edit Card</button></div>
+                            <div className="card-number">**** **** **** 3814</div>
+                            <div className="card-footer-line"><span>Dian</span><span>VISA</span></div>
+                        </div>
+                        <div className="credit-card-visual green-card">
+                           <div className="card-header-line"><span>Rp 89.000.000</span><button style={{background: 'rgba(255,255,255,0.2)', border: 'none', color: 'white', padding: '4px 8px', borderRadius: '4px', cursor: 'pointer', fontSize: '10px'}}>Edit Card</button></div>
+                            <div className="card-number">**** **** **** 1781</div>
+                            <div className="card-footer-line"><span>Daniandra</span><span>VISA</span></div>
+                        </div>
+                        <button className="add-card-button"><Plus size={24}/><p>Tambahkan Kartu</p></button>
+                    </div>
+                </div>
+
+                <div className="card">
+                    <div className="card-header"><h3 className="card-title">PESANAN TERBARU</h3><a href="#" className="view-all-link">View All <ArrowRight size={16}/></a></div>
+                    <table className="orders-table">
+                        <thead><tr><th>ORDER ID</th><th>STATUS</th><th>DATE</th><th>TOTAL</th><th>ACTION</th></tr></thead>
+                        <tbody>{recentOrders.map((o,i)=>(<tr key={i}><td>{o.id}</td><td><span className={`status-badge ${getStatusClass(o.status)}`}>{o.status}</span></td><td>{o.date}</td><td>{o.total}</td><td><a href="#" className="view-all-link">Lihat Detail <ArrowRight size={16}/></a></td></tr>))}</tbody>
+                    </table>
+                </div>
+
+                <div className="card">
+                    <div className="card-header"><h3 className="card-title">RIWAYAT PENCARIAN</h3><a href="#" className="view-all-link">Lihat Semua <ArrowRight size={16}/></a></div>
+                    <div className="products-grid">
+                        {products.map((p,i) => (<div className="product-card" key={i}>
+                            <div className="product-image"><img src={p.img} alt={p.name}/>{p.tag && <span className="product-tag" style={{backgroundColor: p.tagColor}}>{p.tag}</span>}</div>
+                            <div className="product-info">
+                                <div className="product-rating">{[...Array(5)].map((_,j) => <Star key={j} size={16} fill={j < p.rating ? '#ffc107' : 'none'}/>)}</div>
+                                <p className="product-name">{p.name}</p>
+                                <p className="product-price">{p.price}</p>
+                            </div>
+                        </div>))}
+                    </div>
+                    <div className="carousel-nav"><ArrowLeftCircle size={28}/><div className="carousel-dots"><div className="dot active"></div><div className="dot"></div><div className="dot"></div><div className="dot"></div></div><ArrowRightCircle size={28}/></div>
+                </div>
+
+                <Footer/>
+            </div>
+          </div>
+        </div>
+      </>
+    );
+};
+  
 export default Dashboard;

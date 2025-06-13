@@ -1,0 +1,260 @@
+import React from 'react';
+// Impor ikon dari library lucide-react
+import { 
+  LayoutDashboard, Package, Truck, ShoppingCart, Heart, Store, CreditCard, Settings, LogOut, 
+  Mail, Phone, Instagram, Users, Eye, ArrowRight, Star
+} from 'lucide-react';
+
+// =================================================================================
+// 1. KOMPONEN CSS
+// =================================================================================
+const Styles = () => (
+  <style>{`
+    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
+
+    /* General & Layout Styles */
+    .dashboard-page {
+      font-family: 'Inter', sans-serif;
+      background-color: #f8f9fa;
+      min-height: 100vh;
+      padding: 24px;
+    }
+    .breadcrumb {
+      display: flex; align-items: center; gap: 8px; font-size: 14px;
+      color: #6c757d; margin-bottom: 24px;
+    }
+    .breadcrumb a { color: #0d6efd; text-decoration: none; }
+    .dashboard-layout { display: flex; gap: 24px; align-items: flex-start; }
+    .sidebar {
+      flex: 0 0 260px; background-color: #ffffff; border-radius: 8px;
+      padding: 16px; box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+    }
+    .main-content-grid {
+        flex: 1; display: flex; flex-direction: column; gap: 24px;
+    }
+    .card {
+      background-color: #ffffff; border-radius: 8px;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05); padding: 24px;
+    }
+    .card-header {
+        display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px;
+    }
+    .card-title { font-size: 16px; font-weight: 600; margin: 0; color: #343a40; }
+    .view-all-link {
+        font-size: 14px; font-weight: 500; color: #0d6efd; text-decoration: none; display: flex; align-items: center; gap: 4px;
+    }
+
+    /* Sidebar */
+    .sidebar-nav ul { list-style: none; padding: 0; margin: 0; }
+    .sidebar-nav li a {
+      display: flex; align-items: center; gap: 12px; padding: 12px 16px;
+      text-decoration: none; color: #495057; border-radius: 6px; font-weight: 500;
+    }
+    .sidebar-nav li a.active { background-color: #0d6efd; color: #ffffff; }
+    .sidebar-nav li a.active svg { color: #ffffff; }
+    .sidebar-hr { border: none; border-top: 1px solid #e9ecef; margin: 16px 0; }
+    
+    /* Welcome & Top Section */
+    .welcome-text h2 { margin: 0 0 4px 0; font-size: 24px; }
+    .welcome-text p { margin: 0; color: #6c757d; }
+    .welcome-text p a { color: #0d6efd; text-decoration: none; font-weight: 500;}
+    .top-section { display: flex; gap: 24px; align-items: flex-start; }
+    .info-grid { flex: 1; display: grid; grid-template-columns: 1fr 1fr; gap: 24px; }
+    .info-box { display: flex; flex-direction: column; }
+    .info-box h3 { font-size: 14px; font-weight: 600; text-transform: uppercase; color: #6c757d; margin: 0 0 16px 0; }
+    .user-profile { display: flex; align-items: center; gap: 16px; margin-bottom: 16px; }
+    .user-profile img { width: 48px; height: 48px; border-radius: 50%; }
+    .user-profile h4 { font-size: 16px; font-weight: 600; margin: 0; }
+    .user-profile p { font-size: 14px; color: #6c757d; margin: 2px 0 0 0; }
+    .info-line { display: flex; gap: 8px; align-items: center; font-size: 14px; margin-bottom: 8px; }
+    .info-line svg { color: #868e96; flex-shrink: 0; }
+    .edit-button {
+        width: 100%; padding: 10px; margin-top: 16px; border-radius: 6px;
+        background-color: #ffffff; color: #0d6efd; border: 1px solid #0d6efd;
+        font-weight: 600; cursor: pointer; text-align: center;
+    }
+
+    /* Store Stats Boxes */
+    .store-stats-container { display: flex; flex-direction: column; gap: 16px; width: 220px; }
+    .stat-box {
+        display: flex; flex-direction: column; gap: 8px; padding: 16px;
+        border-radius: 8px; border: 1px solid;
+    }
+    .stat-box-header { display: flex; justify-content: space-between; align-items: center; }
+    .stat-box-value { font-size: 24px; font-weight: 700; }
+    .stat-box-label { font-size: 12px; }
+    .stat-box.blue { border-color: #bde0fe; background-color: #eef7ff; color: #0d6efd; }
+    .stat-box.orange { border-color: #fedec5; background-color: #fff8e8; color: #fd7e14; }
+    .stat-box.green { border-color: #b7e4c7; background-color: #f0fff6; color: #198754; }
+    
+    /* Recent Orders Table */
+    .orders-table { width: 100%; border-collapse: collapse; }
+    .orders-table th, .orders-table td {
+        padding: 12px 0; text-align: left; font-size: 14px; border-bottom: 1px solid #e9ecef;
+    }
+    .orders-table th { color: #868e96; font-weight: 600; text-transform: uppercase; font-size: 12px; }
+    .orders-table td { color: #495057; }
+    .status-badge { padding: 4px 8px; border-radius: 4px; font-weight: 600; font-size: 12px; }
+    .status-selesai { background-color: #d1e7dd; color: #0f5132; }
+    .status-dibatalkan { background-color: #f8d7da; color: #842029; }
+    .status-berlangsung { background-color: #fff3cd; color: #664d03; }
+    
+    /* Search Summary Products */
+    .products-grid { display: grid; grid-template-columns: repeat(5, 1fr); gap: 24px; }
+    .store-product-card { border: 1px solid #e9ecef; border-radius: 8px; text-align:center; }
+    .store-product-img-container { position: relative; background-color: #f8f9fa; padding: 16px; border-top-left-radius: 8px; border-top-right-radius: 8px; }
+    .store-product-img-container img { width: 100%; height: 120px; object-fit: contain; }
+    .store-product-fav-btn { position: absolute; top: 8px; right: 8px; color: #adb5bd; cursor: pointer; }
+    .store-product-info { padding: 12px; }
+    .store-product-name { font-size: 12px; color: #495057; margin: 0 0 4px 0; height: 32px; }
+    .store-product-price { font-weight: 600; margin: 0 0 8px 0; }
+    .store-product-footer { display: flex; justify-content: space-between; align-items: center; }
+    .store-product-rating { display: flex; gap: 2px; color: #ffc107; }
+    .store-product-add-btn { width: 24px; height: 24px; border-radius: 50%; background-color: #0d6efd; color: white; display:flex; align-items:center; justify-content:center; cursor:pointer;}
+    .carousel-nav { display: flex; justify-content: center; align-items: center; gap: 16px; margin-top: 24px; }
+    
+    @media (max-width: 1200px) { .products-grid { grid-template-columns: repeat(3, 1fr); } }
+  `}</style>
+);
+
+// =================================================================================
+// 2. DATA DUMMY
+// =================================================================================
+const recentOrders = [
+    { id: '#95459761', status: 'SEDANG BERLANGSUNG', date: 'Dec 30, 2019 05:18', total: '$1,500 (3 Products)' },
+    { id: '#71667167', status: 'SELESAI', date: 'Feb 2, 2019 19:28', total: '$80 (1 Products)' },
+    { id: '#95214362', status: 'DIBATALKAN', date: 'Mar 20, 2019 23:14', total: '$160 (3 Products)' },
+    { id: '#71667167', status: 'SELESAI', date: 'Feb 2, 2019 19:28', total: '$80 (1 Products)' },
+    { id: '#51746385', status: 'SELESAI', date: 'Feb 2, 2019 19:28', total: '$2,300 (2 Products)' },
+    { id: '#51746385', status: 'SELESAI', date: 'Dec 7, 2019 23:20', total: '$70 (1 Products)' },
+    { id: '#673871743', status: 'SELESAI', date: 'Dec 7, 2019 23:20', total: '$220 (1 Products)' },
+];
+const products = [
+    { img: 'https://i.imgur.com/G5g06kE.png', name: 'Kemeja Polos', price: 'Rp 100.000', rating: 5 },
+    { img: 'https://i.imgur.com/vHqgJ5y.png', name: 'Polo cokelat', price: 'Rp 100.000', rating: 5 },
+    { img: 'https://i.imgur.com/2sXB9zD.png', name: 'Kemeja Wanita', price: 'Rp 75.000', rating: 5 },
+    { img: 'https://i.imgur.com/Kxa80yM.png', name: 'Kaos polo pria', price: 'Rp 75.000', rating: 5 },
+    { img: 'https://i.imgur.com/5u0wL7k.png', name: 'kemeja lengan', price: 'Rp 283.000', rating: 5 },
+];
+const getStatusClass = (status) => {
+    switch (status) {
+        case 'SELESAI': return 'status-selesai';
+        case 'DIBATALKAN': return 'status-dibatalkan';
+        case 'SEDANG BERLANGSUNG': return 'status-berlangsung';
+        default: return '';
+    }
+};
+
+// =================================================================================
+// 3. KOMPONEN-KOMPONEN
+// =================================================================================
+const Header = () => (
+  <header>
+    <nav className="breadcrumb"><a href="#">Home</a> / <a href="#">User Account</a> / <span style={{color: '#0d6efd', fontWeight: '500'}}>Dashboard</span></nav>
+  </header>
+);
+
+const Sidebar = () => {
+    const navItems = [
+      { icon: <LayoutDashboard size={20} />, label: 'Dashboard', active: true },
+      { icon: <Package size={20} />, label: 'Riwayat Pemesanan' },
+      { icon: <Truck size={20} />, label: 'Lacak Pesanan' },
+      { icon: <ShoppingCart size={20} />, label: 'Keranjang Belanja' },
+      { icon: <Heart size={20} />, label: 'Wishlist' },
+      { icon: <Store size={20} />, label: 'Buka Toko' },
+      { icon: <CreditCard size={20} />, label: 'Kartu & Alamat' },
+      { icon: <Settings size={20} />, label: 'Riwayat Pencarian' },
+      { icon: <Settings size={20} />, label: 'Pengaturan' },
+      { icon: <LogOut size={20} />, label: 'Log-out' },
+    ];
+    return (
+      <aside className="sidebar">
+        <nav className="sidebar-nav">
+          <ul>{navItems.map(item => (<li key={item.label}><a href="#" className={item.active ? 'active' : ''}>{item.icon}<span>{item.label}</span></a></li>))}</ul>
+          <hr className="sidebar-hr" />
+          <ul><li><a href="#"><LogOut size={20} /><span>Log-out</span></a></li></ul>
+        </nav>
+      </aside>
+    );
+};
+  
+// =================================================================================
+// 4. KOMPONEN UTAMA
+// =================================================================================
+const DashboardLihatToko = () => {
+    return (
+      <>
+        <Styles />
+        <div className="dashboard-page">
+          <Header />
+          <div className="dashboard-layout">
+            <Sidebar />
+            <div className="main-content-grid">
+                
+                <div className="welcome-text">
+                    <h2>Halo, warung92</h2>
+                    <p>Dari dashboard akun kamu, kamu dapat dengan mudah memeriksa & melihat <a href="#">Total Penjualan</a>, manage your <a href="#">orders</a>, <a href="#">shipping addresses</a> and <a href="#">edit your password and account details.</a></p>
+                </div>
+
+                <div className="top-section">
+                    <div className="card info-grid">
+                        <div className="info-box">
+                            <h3>INFORMASI TOKO</h3>
+                            <div className="user-profile">
+                                <img src="https://i.imgur.com/gO23a1e.png" alt="warung92" />
+                                <div><h4>warung92</h4><p>Kab. Bandung</p></div>
+                            </div>
+                            <div className="info-line"><Mail size={16}/><p>warung92@gmail.com</p></div>
+                            <div className="info-line"><Instagram size={16}/><p>@warung92</p></div>
+                            <div className="info-line"><Phone size={16}/><p>+62-820-5555-0118</p></div>
+                            <button className="edit-button">EDIT INFO</button>
+                        </div>
+                        <div className="info-box">
+                            <h3>ALAMAT TOKO</h3>
+                            <p className="info-line" style={{alignItems: 'start'}}>
+                                Jl. Telekomunikasi No. 1, Bandung, Terusan Buahbatu - Bojongsoang, Sukapura, Kec. Dayeuhkolot, Kabupaten Bandung, Jawa Barat 40257
+                            </p>
+                            <button className="edit-button">EDIT ALAMAT</button>
+                        </div>
+                    </div>
+                    <div className="store-stats-container">
+                        <div className="stat-box blue"><div className="stat-box-header"><span className="stat-box-value">2.65k</span><Users size={20}/></div><span className="stat-box-label">Total Pelanggan</span></div>
+                        <div className="stat-box orange"><div className="stat-box-header"><span className="stat-box-value">10k</span><Eye size={20}/></div><span className="stat-box-label">Total Pengunjung</span></div>
+                        <div className="stat-box green"><div className="stat-box-header"><span className="stat-box-value">1.5k</span><ShoppingCart size={20}/></div><span className="stat-box-label">Total Penjualan</span></div>
+                    </div>
+                </div>
+
+                <div className="card">
+                    <div className="card-header"><h3 className="card-title">PESANAN TERBARU</h3><a href="#" className="view-all-link">Lihat Semua <ArrowRight size={16}/></a></div>
+                    <table className="orders-table">
+                        <thead><tr><th>ORDER ID</th><th>STATUS</th><th>DATE</th><th>TOTAL</th><th>ACTION</th></tr></thead>
+                        <tbody>{recentOrders.map((o,i)=>(<tr key={i}><td>{o.id}</td><td><span className={`status-badge ${getStatusClass(o.status)}`}>{o.status}</span></td><td>{o.date}</td><td>{o.total}</td><td><a href="#" className="view-all-link">Lihat Detail <ArrowRight size={16}/></a></td></tr>))}</tbody>
+                    </table>
+                </div>
+
+                <div className="card">
+                    <div className="card-header"><h3 className="card-title">RIWAYAT PENCARIAN</h3><a href="#" className="view-all-link">Lihat Semua <ArrowRight size={16}/></a></div>
+                    <div className="products-grid">
+                        {products.map((p,i) => (<div className="store-product-card" key={i}>
+                            <div className="store-product-img-container"><Heart size={18} className="store-product-fav-btn" /><img src={p.img} alt={p.name}/></div>
+                            <div className="store-product-info">
+                                <p className="store-product-name">{p.name}</p>
+                                <p className="store-product-price">{p.price}</p>
+                                <div className="store-product-footer">
+                                    <div className="store-product-rating">{[...Array(5)].map((_,j) => <Star key={j} size={14} fill={j < p.rating ? '#ffc107' : 'none'} stroke={j < p.rating ? '#ffc107' : '#adb5bd'} />)}</div>
+                                    <div className="store-product-add-btn"><ShoppingCart size={14}/></div>
+                                </div>
+                            </div>
+                        </div>))}
+                    </div>
+                    <div className="carousel-nav"> {/* Placeholder for nav */} </div>
+                </div>
+
+            </div>
+          </div>
+        </div>
+      </>
+    );
+};
+  
+export default DashboardLihatToko;
