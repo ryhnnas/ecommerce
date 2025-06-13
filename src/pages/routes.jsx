@@ -1,8 +1,8 @@
 import { createBrowserRouter } from "react-router-dom";
 import Layout from "./Layout";
-import RegisterForm from "./components/RegisterForm"; // Asumsi path
-import LoginForm from "./components/LoginForm";       // Asumsi path
-import Homepage from "./components/Homepage";         // Impor komponen Homepage
+import RegisterForm from "./register"; // Asumsi path
+import LoginForm from "./login";       // Asumsi path
+import Homepage from "./homepage";         // Impor komponen Homepage
 
 export const router = createBrowserRouter([
     {

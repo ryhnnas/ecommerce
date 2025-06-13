@@ -1,7 +1,7 @@
 import React from 'react';
 import { Outlet } from 'react-router-dom'; // <-- IMPORT PENTING
-import Header from './components/Header';   // Sesuaikan path ke komponen Anda
-import Footer from './components/Footer';   // Sesuaikan path ke komponen Anda
+import Header from '../components/header';   // Sesuaikan path ke komponen Anda
+import Footer from '../components/footer';   // Sesuaikan path ke komponen Anda
 
 const Layout = () => {
   return (
