@@ -1,74 +1,56 @@
 import React from 'react';
-import styled from 'styled-components'; // 1. Impor styled-components
-import {
-  MdDashboard, MdHistory, MdLocationOn, MdShoppingCart, MdFavoriteBorder, 
-  MdStore, MdCreditCard, MdSearch, MdSettings, MdExitToApp
-} from 'react-icons/md';
+import { 
+  Home, 
+  Search, 
+  MapPin, 
+  ShoppingCart, 
+  Heart, 
+  Book, 
+  CreditCard, 
+  Eye, 
+  Settings, 
+  LogOut 
+} from 'lucide-react';
 
-// 2. Definisikan gaya untuk sidebar DI DALAM file ini
-const SidebarWrapper = styled.aside`
-  width: 280px;
-  background-color: #ffffff;
-  padding: 30px 20px;
-  box-shadow: 2px 0 5px rgba(0,0,0,0.05);
-  flex-shrink: 0; // Mencegah sidebar menyusut
+const Sidebar = ({ activeItem = 'Riwayat Pemesanan' }) => {
+  const menuItems = [
+    { icon: Home, label: 'Dashboard', path: '/dashboard' },
+    { icon: Search, label: 'Riwayat Pemesanan', path: '/DashboardOrderHistory' },
+    { icon: MapPin, label: 'Lacak Pesanan', path: '/lacak-pesanan' },
+    { icon: ShoppingCart, label: 'Keranjang Belanja', path: '/keranjang' },
+    { icon: Heart, label: 'Wishlist', path: '/wishlist' },
+    { icon: Book, label: 'Buka Toko', path: '/buka-toko' },
+    { icon: CreditCard, label: 'Kartu & Alamat', path: '/kartu-alamat' },
+    { icon: Eye, label: 'Riwayat Pencarian', path: '/riwayat-pencarian' },
+    { icon: Settings, label: 'Pengaturan', path: '/pengaturan' },
+    { icon: LogOut, label: 'Log-out', path: '/logout' }
+  ];
 
-  nav ul {
-    list-style: none;
-    padding: 0;
-    margin: 0;
-  }
-
-  nav li {
-    padding: 15px 20px;
-    margin-bottom: 5px;
-    border-radius: 8px;
-    display: flex;
-    align-items: center;
-    gap: 15px;
-    cursor: pointer;
-    color: #1c2733; // Warna teks default
-    font-weight: 500;
-    transition: background-color 0.3s, color 0.3s;
-    
-    &:hover {
-      background-color: #f0f2ff;
-    }
-
-    // Ini adalah gaya untuk item yang sedang aktif
-    &.active {
-      background-color: #2a41e8; // Warna primer
-      color: #ffffff; // Teks putih
-    }
-
-    svg {
-      font-size: 20px;
-    }
-  }
-`;
-
-// 3. Gunakan SidebarWrapper sebagai elemen utama
-const Sidebar = () => {
   return (
-    <SidebarWrapper> 
-      <nav>
-        <ul>
-          <li className="active">
-            <MdDashboard /> 
-            <span>Dashboard</span>
-          </li>
-          <li><MdHistory /><span>Riwayat Pemesanan</span></li>
-          <li><MdLocationOn /><span>Lacak Pesanan</span></li>
-          <li><MdShoppingCart /><span>Keranjang Belanja</span></li>
-          <li><MdFavoriteBorder /><span>Wishlist</span></li>
-          <li><MdStore /><span>Buka Toko</span></li>
-          <li><MdCreditCard /><span>Kartu & Alamat</span></li>
-          <li><MdSearch /><span>Riwayat Pencarian</span></li>
-          <li><MdSettings /><span>Pengaturan</span></li>
-          <li><MdExitToApp /><span>Log-out</span></li>
-        </ul>
-      </nav>
-    </SidebarWrapper>
+    <div className="w-64 bg-white shadow-lg h-full">
+      <div className="p-6">
+        <div className="space-y-2">
+          {menuItems.map((item, index) => {
+            const Icon = item.icon;
+            const isActive = item.label === activeItem;
+            
+            return (
+              <div
+                key={index}
+                className={`flex items-center space-x-3 p-3 rounded-lg cursor-pointer transition-colors ${
+                  isActive 
+                    ? 'bg-blue-500 text-white' 
+                    : 'text-gray-600 hover:bg-gray-100'
+                }`}
+              >
+                <Icon size={20} />
+                <span className="font-medium">{item.label}</span>
+              </div>
+            );
+          })}
+        </div>
+      </div>
+    </div>
   );
 };
 
