@@ -13,6 +13,8 @@ import DashboardSetting from "./DashboardSetting";
 import DashboardWishlist from "./DashboardWishlist";
 import DashboardBukaToko from "./DashboardBukaToko";
 import DashboardLihatToko from "./DashboardLihatToko";
+import Checkout from "./checkout";
+import Cart from "./cart";
 
 export const router = createBrowserRouter([
     {
@@ -26,6 +28,10 @@ export const router = createBrowserRouter([
     {
         path: "/addProduct",
         element: <AddProduct />
+    },
+    {
+        path: "/cart",
+        element: <Cart />
     },
     {
         path: "/",
@@ -70,6 +76,10 @@ export const router = createBrowserRouter([
             {
                 path: "/productdetails",
                 element: <ProductDetails />
+            },
+            {
+                path: "/checkout",
+                element: <Checkout/>
             },
             // rute anak lainnya bisa ditambahkan di sini
         ]
