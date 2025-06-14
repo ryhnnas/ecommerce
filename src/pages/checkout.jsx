@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-import Header from '../components/header'
 
 // =================================================================================
 // 1. KOMPONEN SVG UNTUK IKON PEMBAYARAN

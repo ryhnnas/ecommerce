@@ -36,7 +36,6 @@ const Homepage = () => {
     // --- Bagian Logika Utama ---
     const [isAuthenticated, setIsAuthenticated] = useState(false);
     const [userName, setUserName] = useState('');
-    const [isHeroButtonHovered, setIsHeroButtonHovered] = useState(false);
 
     // useEffect untuk mengecek localStorage saat halaman pertama kali dimuat
     useEffect(() => {
@@ -56,7 +55,7 @@ const Homepage = () => {
     const styles = {
         pageContainer: { backgroundColor: '#f8f9fa', minHeight: '100vh' },
         container: { maxWidth: '1200px', margin: '0 auto', padding: '2rem', fontFamily: "'Inter', sans-serif" },
-        welcomeHeader: { marginBottom: '2rem', paddingTop: '100px' /* Jarak dari atas agar tidak tertutup header */ },
+
         userName: { fontSize: '1.5rem', fontWeight: '600' },
         prompt: { color: '#6c757d' },
         heroBanner: { padding: '3rem 2rem', backgroundColor: '#0052cc', borderRadius: '24px', marginBottom: '3rem', color: 'white', textAlign: 'center', display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '1rem' },
@@ -79,21 +78,12 @@ const Homepage = () => {
 
             <main style={styles.container}>
                 <style>{styles.productListWebkit}</style>
-                <div style={styles.welcomeHeader}>
-                    {/* Menyapa pengguna secara dinamis */}
-                    <div style={styles.userName}>Halo, {userName || 'Tamu'} 👋</div>
-                    <div style={styles.prompt}>Mau belanja apa hari ini?</div>
-                </div>
+                {/* Menyapa pengguna secara dinamis */}
+                <div style={styles.userName}>Halo, {userName || 'Tamu'} 👋</div>
+                <div style={styles.prompt}>Mau belanja apa hari ini?</div>
                 <div style={styles.heroBanner}>
                     <h1 style={styles.heroTitle}>Diskon Spesial Akhir Pekan!</h1>
                     <p style={styles.heroSubtitle}>Nikmati potongan harga hingga 50% untuk produk-produk pilihan terbaik kami. Jangan sampai ketinggalan!</p>
-                    <button
-                        style={{...styles.heroButton, ...(isHeroButtonHovered ? styles.heroButtonHover : null)}}
-                        onMouseEnter={() => setIsHeroButtonHovered(true)}
-                        onMouseLeave={() => setIsHeroButtonHovered(false)}
-                    >
-                        Belanja Sekarang →
-                    </button>
                 </div>
                 <section style={styles.section}>
                     <div style={styles.sectionHeader}>
