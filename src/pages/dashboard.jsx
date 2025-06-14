@@ -42,7 +42,7 @@ const Styles = () => (
     }
     .card-title { font-size: 16px; font-weight: 600; margin: 0; color: #343a40; }
     .view-all-link {
-        font-size: 14px; font-weight: 500; color: #0d6efd; text-decoration: none; display: flex; align-items: center; gap: 4px;
+        font-size: 14px; font-weight: 500; color: #0C5AA2; text-decoration: none; display: flex; align-items: center; gap: 4px;
     }
     .footer { text-align: center; margin-top: 24px; font-size: 14px; color: #6c757d; }
 
@@ -54,7 +54,7 @@ const Styles = () => (
       transition: background-color 0.2s, color 0.2s;
     }
     .sidebar-nav li a:hover { background-color: #f1f3f5; }
-    .sidebar-nav li a.active { background-color: #0d6efd; color: #ffffff; }
+    .sidebar-nav li a.active { background-color: #0C5AA2; color: #ffffff; }
     .sidebar-nav li a.active svg { color: #ffffff; }
     .sidebar-hr { border: none; border-top: 1px solid #e9ecef; margin: 16px 0; }
     
@@ -73,7 +73,7 @@ const Styles = () => (
     .info-line svg { color: #868e96; }
     .edit-button {
         width: 100%; padding: 10px; margin-top: 16px; border-radius: 6px;
-        background-color: #e7f5ff; color: #0d6efd; border: none;
+        background-color: #e7f5ff; color: #0C5AA2; border: none;
         font-weight: 600; cursor: pointer; text-align: center;
     }
 
@@ -86,7 +86,7 @@ const Styles = () => (
     .summary-box .icon { width: 36px; height: 36px; border-radius: 50%; display: flex; align-items: center; justify-content: center; }
     .summary-box .text strong { font-size: 20px; display: block; }
     .summary-box .text span { font-size: 12px; opacity: 0.9; }
-    .summary-box.blue { background-color: #0d6efd; }
+    .summary-box.blue { background-color: #0C5AA2; }
     .summary-box.blue .icon { background-color: rgba(255,255,255,0.2); }
     .summary-box.orange { background-color: #fd7e14; }
     .summary-box.orange .icon { background-color: rgba(255,255,255,0.2); }

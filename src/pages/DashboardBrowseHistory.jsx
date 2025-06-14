@@ -46,7 +46,7 @@ const Styles = () => (
       transition: background-color 0.2s, color 0.2s;
     }
     .sidebar-nav li a:hover { background-color: #f1f3f5; }
-    .sidebar-nav li a.active { background-color: #0d6efd; color: #ffffff; }
+    .sidebar-nav li a.active { background-color: #0C5AA2; color: #ffffff; }
     .sidebar-nav li a.active svg { color: #ffffff; }
     .sidebar-hr { border: none; border-top: 1px solid #e9ecef; margin: 16px 0; }
 

@@ -15,6 +15,7 @@ import DashboardBukaToko from "./DashboardBukaToko";
 import DashboardLihatToko from "./DashboardLihatToko";
 import Checkout from "./checkout";
 import Cart from "./cart";
+import DashboardLogout from "./DashboardLogout";
 
 export const router = createBrowserRouter([
     {
@@ -80,6 +81,10 @@ export const router = createBrowserRouter([
             {
                 path: "/checkout",
                 element: <Checkout/>
+            },
+            {
+                path: "/dashboardlogout",
+                element: <DashboardLogout/>
             },
             // rute anak lainnya bisa ditambahkan di sini
         ]
