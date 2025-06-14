@@ -44,7 +44,7 @@ const Styles = () => (
       transition: background-color 0.2s, color 0.2s;
     }
     .sidebar-nav li a:hover { background-color: #f1f3f5; }
-    .sidebar-nav li a.active { background-color: #0d6efd; color: #ffffff; }
+    .sidebar-nav li a.active { background-color: #0C5AA2; color: #ffffff; }
     .sidebar-nav li a.active svg { color: #ffffff; }
 
     /* Buka Toko Page Specific Styles */
@@ -102,7 +102,7 @@ const Styles = () => (
       margin-top: 16px;
       padding: 12px 32px;
       border: none;
-      background-color: #0d6efd;
+      background-color: #0C5AA2;
       color: white;
       font-weight: 600;
       border-radius: 6px;
