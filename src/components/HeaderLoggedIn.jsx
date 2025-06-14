@@ -329,7 +329,7 @@ const Header = () => {
                             </CartPopup>
                         </CartContainer>
 
-                        <UserIconWrapper to="/login" aria-label="Profil Pengguna">
+                        <UserIconWrapper to="/dashboard" aria-label="Profil Pengguna">
                             <UserIcon />
                         </UserIconWrapper>
                     </ActionsContainer>
