@@ -1,19 +1,26 @@
-import React from 'react';
-import { Outlet } from 'react-router-dom'; // <-- IMPORT PENTING
-import Header from '../components/header';   // Sesuaikan path ke komponen Anda
-import Footer from '../components/footer';   // Sesuaikan path ke komponen Anda
+import React, { useState, useEffect } from 'react';
+import { Outlet, useLocation } from 'react-router-dom';
+import HeaderLoggedIn from '../components/HeaderLoggedIn';
+import HeaderLoggedOut from '../components/HeaderLoggedOut';
+import Footer from '../components/footer';
 
 const Layout = () => {
-  return (
-    <>
-      <Header />
-      <main>
-        {/* Outlet adalah tempat di mana komponen anak (RegisterForm, LoginForm, dll) akan dirender */}
-        <Outlet /> 
-      </main>
-      <Footer />
-    </>
-  );
-};
+    const [isAuthenticated, setIsAuthenticated] = useState(false);
+    const location = useLocation();
 
+    useEffect(() => {
+        const token = localStorage.getItem('authToken');
+        setIsAuthenticated(token !== null);
+    }, [location.pathname]);
+
+    return (
+        <>
+            {isAuthenticated ? <HeaderLoggedIn /> : <HeaderLoggedOut />}
+            <main>
+                <Outlet /> 
+            </main>
+            <Footer />
+        </>
+    );
+};
 export default Layout;
