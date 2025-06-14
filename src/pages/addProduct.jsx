@@ -13,13 +13,13 @@ const SuccessIllustration = (props) => ( <svg {...props} viewBox="0 0 64 64"><pa
 // --- KONSTANTA DATA ---
 const deliveryServices = [
     { name: 'Self pickup', logo: 'https://img.icons8.com/pastel-glyph/64/4a90e2/box--v1.png' },
-    { name: 'Courier DPD', logo: 'https://logotyp.us/files/dpd.svg' },
-    { name: 'Courier DPD cash on delivery', logo: 'https://logotyp.us/files/dpd.svg' },
-    { name: 'Courier Inpost', logo: 'https://logotyp.us/files/inpost.svg' },
-    { name: 'Parcel machine Inpost', logo: 'https://logotyp.us/files/inpost.svg' },
-    { name: 'Paczka Orlen', logo: 'https://logotyp.us/files/orlen-paczka.svg' },
-    { name: 'Branch Poczta Polska', logo: 'https://logotyp.us/files/poczta-polska.svg' },
-    { name: 'Courier Poczta Polska', logo: 'https://logotyp.us/files/poczta-polska.svg' },
+    { name: 'Kurir A', logo: 'https://img.icons8.com/pastel-glyph/64/4a90e2/box--v1.png' },
+    { name: 'Kurir B', logo: 'https://img.icons8.com/pastel-glyph/64/4a90e2/box--v1.png' },
+    { name: 'Kurir C', logo: 'https://img.icons8.com/pastel-glyph/64/4a90e2/box--v1.png' },
+    { name: 'Kurir D', logo: 'https://img.icons8.com/pastel-glyph/64/4a90e2/box--v1.png' },
+    { name: 'Kurir E', logo: 'https://img.icons8.com/pastel-glyph/64/4a90e2/box--v1.png' },
+    { name: 'Kurir F', logo: 'https://img.icons8.com/pastel-glyph/64/4a90e2/box--v1.png' },
+    { name: 'Kurir G', logo: 'https://img.icons8.com/pastel-glyph/64/4a90e2/box--v1.png' },
 ];
 
 // --- OBJEK STYLES ---
@@ -28,7 +28,7 @@ const styles = {
     page: { backgroundColor: '#f8f9fa', minHeight: '100vh', fontFamily: "'Inter', sans-serif" },
     main: { maxWidth: '900px', margin: '0 auto', padding: '0 2rem' },
     header: { backgroundColor: 'white', padding: '1rem 2rem', display: 'flex', justifyContent: 'space-between', alignItems: 'center', borderBottom: '1px solid #e9ecef' },
-    headerTitle: { fontSize: '1.5rem', fontWeight: 'bold', color: '#007bff' },
+    headerTitle: { fontSize: '1.5rem', fontWeight: 'bold', color: '#0C5AA2' },
     headerActions: { display: 'flex', alignItems: 'center', gap: '1.5rem' },
     userProfile: { display: 'flex', alignItems: 'center', gap: '10px', fontWeight: '500' },
     userAvatar: { width: '40px', height: '40px', borderRadius: '50%', objectFit: 'cover' },
@@ -43,15 +43,16 @@ const styles = {
     label: { display: 'block', fontWeight: '500', color: '#495057', marginBottom: '0.5rem' },
     input: { width: '100%', padding: '0.75rem 1rem', border: '1px solid #ced4da', borderRadius: '8px', fontSize: '1rem', boxSizing: 'border-box' },
     inputMuted: { backgroundColor: '#f8f9fa' },
-    inputError: { borderColor: '#dc3545', borderWidth: '2px' },
+    inputError: { borderColor: 'lightgrey', borderWidth: '2px' },
     textarea: { width: '100%', padding: '0.75rem 1rem', border: '1px solid #ced4da', borderRadius: '8px', fontSize: '1rem', boxSizing: 'border-box', minHeight: '150px', resize: 'vertical' },
     charCounter: { fontSize: '0.75rem', color: '#6c757d', textAlign: 'right', marginTop: '0.25rem' },
     dimensionGroup: { display: 'grid', gridTemplateColumns: '1fr 1fr 1fr', gap: '1rem' },
+    dimensionLabel: {display: 'block', fontSize: '0.800rem', fontWeight: '400', color: '#6c757d', marginBottom: '0.25rem'},
     
     // Buttons
     buttonContainer: { display: 'flex', justifyContent: 'flex-end', marginTop: '2rem', gap: '1rem' },
     button: { padding: '0.75rem 1.5rem', border: 'none', borderRadius: '8px', fontWeight: '600', fontSize: '1rem', cursor: 'pointer', transition: 'opacity 0.2s' },
-    buttonNext: { backgroundColor: '#007bff', color: 'white' },
+    buttonNext: { backgroundColor: '#0C5AA2', color: 'white' },
     buttonBack: { backgroundColor: '#e9ecef', color: '#495057' },
 
     // Stepper
@@ -73,7 +74,7 @@ const styles = {
     // Delivery Step
     deliveryGrid: { display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '1rem' },
     deliveryOption: { display: 'flex', alignItems: 'center', justifyContent: 'space-between', padding: '1rem', border: '2px solid #ced4da', borderRadius: '8px', cursor: 'pointer', transition: 'border-color 0.2s' },
-    deliveryOptionSelected: { borderColor: '#007bff' },
+    deliveryOptionSelected: { borderColor: '#0C5AA2' },
     deliveryInfo: { display: 'flex', alignItems: 'center', gap: '1rem'},
     deliveryLogo: { height: '24px', objectFit: 'contain' },
 
@@ -90,7 +91,7 @@ const Stepper = ({ currentStep }) => {
 
     const getStepStyle = (stepIndex) => {
         if (stepIndex < currentStep) return { icon: { backgroundColor: '#e0f3ff', borderColor: '#007bff', color: '#007bff' }, text: { color: '#007bff' }, line: { backgroundColor: '#007bff' } };
-        if (stepIndex === currentStep) return { icon: { backgroundColor: '#007bff', borderColor: '#007bff', color: 'white' }, text: { color: '#007bff' }, line: { backgroundColor: '#e9ecef' } };
+        if (stepIndex === currentStep) return { icon: { backgroundColor: '#0C5AA2', borderColor: '#0C5AA2', color: 'white' }, text: { color: '#0C5AA2' }, line: { backgroundColor: '#e9ecef' } };
         return { icon: {}, text: {}, line: {} };
     };
 
@@ -141,9 +142,18 @@ const DescriptionStep = ({ data, handleChange, handleDimensionChange, onNext }) 
                 <div style={styles.formGroup}>
                     <label style={styles.label}>Dimensions (optional)</label>
                     <div style={styles.dimensionGroup}>
-                        <input type="number" name="length" value={data.length} placeholder="Length [mm]" onChange={handleDimensionChange} style={styles.input} />
-                        <input type="number" name="width" value={data.width} placeholder="Width [mm]" onChange={handleDimensionChange} style={styles.input} />
-                        <input type="number" name="height" value={data.height} placeholder="Height [mm]" onChange={handleDimensionChange} style={styles.input} />
+                        <div>
+                            <label htmlFor="length" style={styles.dimensionLabel}>Panjang [cm]</label>
+                            <input type="number" name="length" value={data.length} placeholder="Length [mm]" onChange={handleDimensionChange} style={styles.input} />
+                        </div>
+                        <div>
+                            <label htmlFor="width" style={styles.dimensionLabel}>Lebar [cm]</label>
+                            <input type="number" name="width" value={data.width} placeholder="Width [mm]" onChange={handleDimensionChange} style={styles.input} />
+                        </div>
+                        <div>
+                            <label htmlFor="height" style={styles.dimensionLabel}>Tinggi [cm]</label>
+                            <input type="number" name="height" value={data.height} placeholder="Height [mm]" onChange={handleDimensionChange} style={styles.input} />
+                        </div>
                     </div>
                 </div>
                 <div style={styles.formGroup}>
@@ -207,7 +217,7 @@ const ShippingStep = ({ data, handleDeliveryChange, handleChange, onBack, onNext
             </div>
             <div style={{ ...styles.formGroup, marginTop: '2rem' }}>
                 <label style={styles.label}>Shipping time</label>
-                <input type="text" name="shippingTime" value={data.shippingTime} onChange={handleChange} placeholder="Specify a date" style={{ ...styles.input, ...(isNextDisabled ? styles.inputError : {}) }} />
+                <input type="text" name="shippingTime" value={data.shippingTime} onChange={handleChange} placeholder="dd/mm/yyy" style={{ ...styles.input, ...(isNextDisabled ? styles.inputError : {}) }} />
             </div>
             <div style={styles.buttonContainer}>
                 <button style={{ ...styles.button, ...styles.buttonBack }} onClick={onBack}>← Back</button>

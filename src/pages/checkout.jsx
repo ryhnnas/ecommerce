@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import Header from '../components/header'
 
 // =================================================================================
 // 1. KOMPONEN SVG UNTUK IKON PEMBAYARAN
@@ -114,12 +115,12 @@ const Styles = () => (
         transition: border-color 0.2s, background-color 0.2s;
     }
     .payment-option.selected {
-        border-color: #0d6efd;
+        border-color: #0C5AA2;
         background-color: #e7f5ff;
     }
     .payment-option label { font-size: 12px; font-weight: 500; }
     .payment-option svg { color: #495057; }
-    .payment-option.selected svg { color: #0d6efd; }
+    .payment-option.selected svg { color: #0C5AA2; }
     
     /* Summary Card */
     .summary-card {
@@ -135,7 +136,7 @@ const Styles = () => (
         font-size: 14px;
     }
     .summary-row.voucher a {
-        color: #0d6efd;
+        color: #0C5AA2;
         font-weight: 600;
         text-decoration: none;
     }
@@ -158,7 +159,7 @@ const Styles = () => (
         width: 100%;
         padding: 14px;
         margin-top: 24px;
-        background-color: #0d6efd;
+        background-color: #0C5AA2;
         color: white;
         border: none;
         border-radius: 6px;
@@ -170,7 +171,7 @@ const Styles = () => (
         display: block;
         text-align: center;
         margin-top: 16px;
-        color: #0d6efd;
+        color: #0C5AA2;
         font-weight: 500;
         text-decoration: none;
     }
