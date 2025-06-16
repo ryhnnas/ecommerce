@@ -1,0 +1,136 @@
+/* Styling for the modal */
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
+
+.modal-content {
+  background-color: white;
+  padding: 20px;
+  border-radius: 8px;
+  width: 400px;
+  max-width: 100%;
+}
+
+.modal-body {
+  margin-top: 10px;
+}
+
+textarea {
+  width: 100%;
+  height: 100px;
+  padding: 10px;
+  margin-top: 5px;
+}
+
+button {
+  background-color: #007bff;
+  /* color: white; */
+  padding: 10px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  margin-top: 10px;
+}
+
+button:hover {
+  background-color: #0056b3;
+}
+
+button:focus {
+  outline: none;
+}
+
+/* General input styles */
+input, textarea {
+  width: 100%;
+  padding: 8px; /* Add some padding inside the input for better spacing */
+  margin-top: 5px;
+  font-size: 16px;
+  border: 1px solid #d1d1d1; /* Smooth, light gray border */
+  border-radius: 3px; /* Small border radius for rounded corners */
+  transition: border-color 0.3s ease, box-shadow 0.3s ease; /* Smooth transition for focus */
+  box-sizing: border-box; /* Ensures padding doesn't affect width */
+}
+
+/* Focus styles */
+input:focus, textarea:focus {
+  border-color: #007bff; /* Blue border on focus */
+  outline: none; /* Remove default outline */
+  box-shadow: 0 0 5px rgba(0, 123, 255, 0.5); /* Light blue glow */
+}
+
+/* Input hover styles */
+input:hover, textarea:hover {
+  border-color: #888; /* Slightly darker gray border on hover */
+}
+
+/* Error state */
+input:invalid, textarea:invalid {
+  border-color: red; /* Red border for invalid input */
+}
+
+input:invalid:focus, textarea:invalid:focus {
+  box-shadow: 0 0 5px rgba(255, 0, 0, 0.5); /* Red glow on focus for invalid input */
+}
+
+/* Styling for textarea specifically */
+textarea {
+  resize: vertical; /* Allow vertical resizing */
+  height: 100px; /* Set height for textarea */
+}
+
+/* Label styling */
+label {
+  font-size: 14px;
+  margin-bottom: 5px;
+  display: block;
+  color: #333;
+}
+
+/* Styling the select dropdown */
+select {
+  width: 100%;
+  padding: 8px; /* Padding inside the select box */
+  font-size: 16px;
+  border: 1px solid #d1d1d1; /* Gray border */
+  border-radius: 5px; /* Small rounded corners */
+  background-color: white; /* White background */
+  transition: border-color 0.3s ease, box-shadow 0.3s ease; /* Smooth transition for focus */
+  box-sizing: border-box; /* Prevent padding from affecting the width */
+}
+
+/* Styling for the options */
+select option {
+  padding: 10px; /* Padding inside each option */
+  background-color: white; /* Option background */
+  color: #333; /* Option text color */
+  font-size: 16px; /* Option text size */
+}
+
+/* Focus style for the select box */
+select:focus {
+  border-color: #007bff; /* Blue border on focus */
+  outline: none; /* Remove default outline */
+  box-shadow: 0 0 5px rgba(0, 123, 255, 0.5); /* Light blue glow */
+}
+
+/* Hover effect for select dropdown */
+select:hover {
+  border-color: #888; /* Slightly darker border on hover */
+}
+
+/* Disabled state for the select dropdown */
+select:disabled {
+  background-color: #f0f0f0; /* Light gray background */
+  border-color: #ccc; /* Light border */
+  cursor: not-allowed; /* Change cursor to indicate disabled state */
+}
