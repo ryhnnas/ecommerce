@@ -1,4 +1,5 @@
 Selamat Datang di BELANJA.IN!
+![Screenshot 2025-06-15 181115](https://github.com/user-attachments/assets/9801ac32-fbd4-4433-8fa3-71cb6b7c7d35)
 Ini adalah panduan singkat untuk membantu Anda menggunakan semua fitur di platform kami.
 
 Alur Penggunaan Utama
