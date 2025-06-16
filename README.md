@@ -4,8 +4,8 @@ Ini adalah panduan singkat untuk membantu Anda menggunakan semua fitur di platfo
 Alur Penggunaan Utama
 Website ini memiliki dua mode penggunaan:
 
-Sebelum Login (Tamu): Anda hanya bisa melihat-lihat semua produk yang ada. Tidak ada fitur lain yang bisa digunakan.
-Setelah Login (Pengguna Terdaftar): Anda bisa menggunakan semua fitur: membeli, menyimpan ke keranjang, membuka toko, dan lainnya.
+- Sebelum Login (Tamu): Anda hanya bisa melihat-lihat semua produk yang ada. Tidak ada fitur lain yang bisa digunakan.
+- Setelah Login (Pengguna Terdaftar): Anda bisa menggunakan semua fitur: membeli, menyimpan ke keranjang, membuka toko, dan lainnya.
 Jadi, langkah pertama yang paling penting adalah membuat akun dan login.
 
 **Langkah 1: Membuat Akun dan Login**
