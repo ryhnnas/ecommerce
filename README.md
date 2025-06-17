@@ -7,11 +7,11 @@ Ini adalah panduan singkat untuk membantu Anda menggunakan semua fitur di platfo
 =====================================================================
 **AKUN YANG TERSEDIA DARI belanjain.sql**
 1. Akun Buyer sekaligus Seller
-   ussername : ryhnnas
-   password : 123456
+ussername : ryhnnas
+password : 123456
 2. Akun Buyer
-   ussername : agra
-   password : 123456
+ussername : agra
+password : 123456
 =====================================================================
 
 **Alur Penggunaan Utama**
