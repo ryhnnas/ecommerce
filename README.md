@@ -4,7 +4,17 @@ Selamat Datang di BELANJA.IN!
 
 Ini adalah panduan singkat untuk membantu Anda menggunakan semua fitur di platform kami.
 
-Alur Penggunaan Utama
+=====================================================================
+**AKUN YANG TERSEDIA DARI belanjain.sql**
+1. Akun Buyer sekaligus Seller
+   ussername : ryhnnas
+   password : 123456
+2. Akun Buyer
+   ussername : agra
+   password : 123456
+=====================================================================
+
+**Alur Penggunaan Utama**
 Website ini memiliki dua mode penggunaan:
 
 - Sebelum Login (Tamu): Anda hanya bisa melihat-lihat semua produk yang ada. Tidak ada fitur lain yang bisa digunakan.
